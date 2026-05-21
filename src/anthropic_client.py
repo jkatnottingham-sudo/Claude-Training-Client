@@ -4,16 +4,18 @@ load_dotenv()
 from anthropic import Anthropic
 
 client = Anthropic()
-model = "claude-sonnet-4-5"
+model = "claude-haiku-4-5"
 
 # The default system prompt is defined below, but can be overridden via parameters:
 # system_prompt = "You are a patient math tutor. Do not give the answer directly, but guide the user to the answer. Guide them to an answer step by step."
 
-def chat(messages, system_prompt: str = ""):
+def chat(messages, system_prompt: str = "", stop_sequences: list[str] = []):
     params = {
         "model": model,
         "max_tokens": 1000,
         "messages": messages,
+        "temperature": 0.1,
+        "stop_sequences": stop_sequences
     }
     if system_prompt:
         params["system"] = system_prompt
