@@ -1,22 +1,49 @@
 [
   {
-    "task": "Create a JSON configuration file for an AWS Lambda function that processes S3 events, with environment variables for the bucket name and log level",
-    "format": "json",
-    "solution_criteria": "A valid JSON object containing Lambda function metadata, environment variables section with bucket name and log level, and event source mapping configuration for S3"
+    "prompt_inputs": {
+      "height": "180 cm",
+      "weight": "68 kg",
+      "goal": "Prepare for a marathon with a 20 km long run scheduled for afternoon, requiring high carbohydrate intake and strategic meal timing",
+      "restrictions": "None"
+    },
+    "solution_criteria": [
+      "Meal plan covers full day with breakfast, lunch, dinner, and pre/post-workout snacks",
+      "Total daily carbohydrate intake supports endurance training (approximately 8-10g per kg body weight)",
+      "Pre-long run meal consumed 2-3 hours before afternoon training session",
+      "Post-workout nutrition included within 30-60 minutes after training completion"
+    ],
+    "task_description": "Write a compact, concise 1 day meal plan for a single athlete",
+    "scenario": "Testing with a professional endurance athlete (marathon runner) requiring high carbohydrate intake and specific timing around long training sessions"
   },
   {
-    "task": "Write a Python function that takes an AWS S3 bucket name and prefix as parameters and returns a list of all object keys in that bucket using boto3",
-    "format": "python",
-    "solution_criteria": "A function that uses boto3 S3 client, handles pagination correctly, filters by prefix, and returns a clean list of object keys without errors"
+    "prompt_inputs": {
+      "height": "180 cm",
+      "weight": "85 kg",
+      "goal": "Build muscle mass with caloric surplus for strength training",
+      "restrictions": "None"
+    },
+    "solution_criteria": [
+      "Meal plan contains exactly 4-5 meals distributed throughout the day",
+      "Each meal contains at least 30g protein with total daily protein exceeding 170g",
+      "Total daily calories are in 500+ calorie surplus (approximately 3200-3400 calories)",
+      "Meals are practical and concise with brief preparation descriptions"
+    ],
+    "task_description": "Write a compact, concise 1 day meal plan for a single athlete",
+    "scenario": "Testing with a strength/power athlete (weightlifter) needing high protein distribution across meals and caloric surplus for muscle building"
   },
   {
-    "task": "Create an XML CloudFormation template that defines an AWS IAM role with permissions to read from an S3 bucket and write logs to CloudWatch",
-    "format": "xml",
-    "solution_criteria": "Valid XML with proper CloudFormation syntax, IAM role definition, inline policy with S3 read permissions and CloudWatch Logs write permissions, and correct resource references"
-  },
-  {
-    "task": "Write a regular expression that validates an AWS S3 bucket name according to AWS naming rules (3-63 characters, lowercase letters, numbers, hyphens, must start and end with letter or number)",
-    "format": "regex",
-    "solution_criteria": "A regex pattern that enforces length constraints (3-63 chars), allows only lowercase alphanumeric and hyphens, and ensures the name starts and ends with alphanumeric characters"
+    "prompt_inputs": {
+      "height": "182 cm",
+      "weight": "78 kg",
+      "goal": "Optimize performance and recovery for competitive soccer match day",
+      "restrictions": "Vegetarian, no nuts"
+    },
+    "solution_criteria": [
+      "Meal plan covers full day with 4-5 eating occasions (breakfast, pre-match meal, match-day snacks, post-match recovery meal, dinner)",
+      "Macronutrient balance supports soccer performance: adequate carbohydrates for energy, protein for muscle recovery, healthy fats, and hydration strategy included",
+      "Meals are practical and digestible for match-day consumption, with timing appropriate for pre-match (2-3 hours before) and post-match recovery"
+    ],
+    "task_description": "Write a compact, concise 1 day meal plan for a single athlete",
+    "scenario": "Testing with a sport-specific athlete (soccer player) requiring balanced macronutrients with emphasis on recovery, hydration, and performance during competitive match day"
   }
 ]

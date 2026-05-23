@@ -1,0 +1,22 @@
+[
+  {
+    "task": "Create a JSON configuration file for an AWS Lambda function that processes S3 events, with environment variables for the bucket name and log level",
+    "format": "json",
+    "solution_criteria": "A valid JSON object containing Lambda function metadata, environment variables section with bucket name and log level, and event source mapping configuration for S3"
+  },
+  {
+    "task": "Write a Python function that takes an AWS S3 bucket name and prefix as parameters and returns a list of all object keys in that bucket using boto3",
+    "format": "python",
+    "solution_criteria": "A function that uses boto3 S3 client, handles pagination correctly, filters by prefix, and returns a clean list of object keys without errors"
+  },
+  {
+    "task": "Create an XML CloudFormation template that defines an AWS IAM role with permissions to read from an S3 bucket and write logs to CloudWatch",
+    "format": "xml",
+    "solution_criteria": "Valid XML with proper CloudFormation syntax, IAM role definition, inline policy with S3 read permissions and CloudWatch Logs write permissions, and correct resource references"
+  },
+  {
+    "task": "Write a regular expression that validates an AWS S3 bucket name according to AWS naming rules (3-63 characters, lowercase letters, numbers, hyphens, must start and end with letter or number)",
+    "format": "regex",
+    "solution_criteria": "A regex pattern that enforces length constraints (3-63 chars), allows only lowercase alphanumeric and hyphens, and ensures the name starts and ends with alphanumeric characters"
+  }
+]

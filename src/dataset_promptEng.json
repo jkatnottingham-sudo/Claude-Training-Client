@@ -1,0 +1,50 @@
+[
+  {
+    "prompt_inputs": {
+      "height": "180 cm",
+      "weight": "85 kg",
+      "goal": "Strength and power development for competitive weightlifting with muscle gain",
+      "restrictions": "None"
+    },
+    "solution_criteria": [
+      "Meal plan covers all meals for one full day with specific timing around training",
+      "Macronutrient ratios support strength/power goals (high protein minimum 2.2g per kg body weight, adequate carbs for performance)",
+      "Includes at least one pre-workout and one post-workout meal strategically timed",
+      "Plan is concise and practical (fits in 1 page format)"
+    ],
+    "task_description": "Write a compact, concise 1 day meal plan for a single athlete",
+    "scenario": "Testing with a strength/power athlete (e.g., weightlifter or sprinter) with high caloric and protein requirements, specific macronutrient ratios, and meal timing around training sessions"
+  },
+  {
+    "prompt_inputs": {
+      "height": "178 cm",
+      "weight": "68 kg",
+      "goal": "Prepare a 1-day meal plan for a distance runner with a 90-minute long run scheduled in the afternoon",
+      "restrictions": "Vegetarian, no nuts"
+    },
+    "solution_criteria": [
+      "Meal plan includes 4-5 eating occasions with carbohydrate-focused meals and snacks to support endurance training",
+      "Pre-run meal (2-3 hours before) and intra-run hydration/fuel strategy are explicitly specified",
+      "Total daily carbohydrates support high-volume endurance work (approximately 8-10g per kg body weight)",
+      "Plan is compact and fits within 1 day format with realistic meal timing"
+    ],
+    "task_description": "Write a compact, concise 1 day meal plan for a single athlete",
+    "scenario": "Testing with an endurance athlete (e.g., distance runner or cyclist) focusing on carbohydrate loading, hydration timing, and sustained energy management throughout long training days"
+  },
+  {
+    "prompt_inputs": {
+      "height": "160 cm",
+      "weight": "52 kg",
+      "goal": "Maintain lean muscle mass while reducing body weight by 2kg over 4 weeks for competition weigh-in in combat sports",
+      "restrictions": "Low sodium (under 2000mg daily), no dairy, no processed foods"
+    },
+    "solution_criteria": [
+      "Meal plan covers all 3 meals for 1 day with specific foods and approximate portions",
+      "Total daily sodium content stays below 2000mg and complies with all dietary restrictions",
+      "Caloric intake supports gradual weight loss (approximately 300-500 calorie deficit) while maintaining protein for muscle preservation",
+      "Meals are practical, compact, and require minimal preparation time"
+    ],
+    "task_description": "Write a compact, concise 1 day meal plan for a single athlete",
+    "scenario": "Testing with a sport-specific constraint athlete (e.g., gymnast or combat sports competitor) with weight management goals, low-sodium requirements, and meals that balance performance with body composition control"
+  }
+]

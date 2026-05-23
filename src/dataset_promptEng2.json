@@ -1,0 +1,39 @@
+[
+  {
+    "prompt_inputs": {
+      "content": "Recent advances in machine learning have revolutionized natural language processing through the development of transformer architectures. These deep learning models, particularly BERT and GPT variants, leverage attention mechanisms to process sequential data more efficiently than recurrent neural networks. Within NLP applications, sentiment analysis has benefited significantly from transfer learning approaches, where pre-trained language models fine-tuned on domain-specific corpora achieve state-of-the-art performance. Additionally, transformer-based systems have enabled breakthroughs in machine translation, named entity recognition, and question-answering tasks, collectively demonstrating the versatility of attention-based deep learning mechanisms across diverse linguistic tasks."
+    },
+    "solution_criteria": [
+      "Extracts both broad topics (machine learning, natural language processing, deep learning, transformer architectures) and specific subtopics (BERT, GPT, sentiment analysis, transfer learning, machine translation, named entity recognition, question-answering)",
+      "Distinguishes between general concepts and their specific instantiations without excessive duplication",
+      "Returns output as a JSON array of strings with clear, distinct topic entries"
+    ],
+    "task_description": "Extract topics out of a passsage of text from a scholarly article into a JSON array of strings",
+    "scenario": "Testing with a passage containing overlapping or nested topics to assess whether the extraction properly distinguishes between broad topics and subtopics"
+  },
+  {
+    "prompt_inputs": {
+      "content": "Recent advances in computational neuroscience have leveraged machine learning algorithms to decode neural activity patterns in the prefrontal cortex, revealing how cognitive control mechanisms regulate decision-making processes. These findings intersect with behavioral economics, where studies demonstrate that individuals exhibit systematic biases in risk assessment and temporal discounting. Furthermore, neuroimaging data combined with economic choice experiments suggest that dopaminergic pathways modulate both reward valuation and social preference formation, challenging traditional assumptions about rational actor models in microeconomic theory while simultaneously illuminating the neurobiological substrates of human agency."
+    },
+    "solution_criteria": [
+      "Identifies distinct topics spanning multiple disciplines (neuroscience, psychology, economics, neurobiology)",
+      "Extracts specific technical concepts and methodologies mentioned in the passage",
+      "Avoids duplicating closely related concepts while recognizing them as separate topics",
+      "Returns results as a JSON array of strings"
+    ],
+    "task_description": "Extract topics out of a passsage of text from a scholarly article into a JSON array of strings",
+    "scenario": "Testing with interdisciplinary passage containing mixed technical and social science topics to verify accurate identification of distinct concepts across fields"
+  },
+  {
+    "prompt_inputs": {
+      "content": "Recent advances in CRISPR-Cas9 gene editing have demonstrated significant efficacy in treating monogenic disorders through ex vivo hematopoietic stem cell (HSC) modification. The mechanism involves site-specific double-strand breaks (DSBs) followed by homology-directed repair (HDR) to correct pathogenic mutations. Clinical trials utilizing this approach for sickle cell disease (SCD) and \u03b2-thalassemia have shown remarkable improvements in hemoglobin levels and reduced vaso-occlusive crisis (VOC) frequency. However, off-target effects and the immunogenicity of the Cas9 nuclease remain significant challenges in translating this technology to in vivo applications. Recent developments in base editing (BE) and prime editing (PE) represent promising alternatives that minimize DSBs and improve specificity, with potential applications extending to polygenic disorders."
+    },
+    "solution_criteria": [
+      "Extracts all major topics including both explicit terms (CRISPR-Cas9, gene editing, base editing) and implicit topics represented by acronyms (HSC, HDR, SCD, VOC, BE, PE)",
+      "Identifies domain-specific concepts (off-target effects, homology-directed repair, vaso-occlusive crisis) as distinct topics",
+      "Returns results as a JSON array of strings with no additional formatting or explanation"
+    ],
+    "task_description": "Extract topics out of a passsage of text from a scholarly article into a JSON array of strings",
+    "scenario": "Testing with a passage containing domain-specific jargon and acronyms to verify the prompt correctly identifies topics despite specialized terminology and abbreviations"
+  }
+]

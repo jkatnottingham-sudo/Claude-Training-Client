@@ -16,7 +16,7 @@ def main() -> None:
 
         response = chat(messages, system_prompt)
         print(response)
-        add_assistant_message(messages, response)
+        #add_assistant_message(messages, response)
         
 if __name__ == "__main__":
     main()

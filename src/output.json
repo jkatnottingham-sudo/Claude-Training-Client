@@ -1,0 +1,54 @@
+[
+  {
+    "output": "```json\n[\n  \"Computational neuroscience\",\n  \"Machine learning algorithms\",\n  \"Neural activity patterns\",\n  \"Prefrontal cortex\",\n  \"Cognitive control\",\n  \"Decision-making\",\n  \"Behavioral economics\",\n  \"Risk assessment\",\n  \"Temporal discounting\",\n  \"Neuroimaging\",\n  \"Dopaminergic pathways\",\n  \"Reward valuation\",\n  \"Social preference formation\",\n  \"Rational actor models\",\n  \"Microeconomic theory\",\n  \"Human agency\"\n]\n```",
+    "test_case": {
+      "prompt_inputs": {
+        "content": "Recent advances in computational neuroscience have leveraged machine learning algorithms to decode neural activity patterns in the prefrontal cortex, revealing how cognitive control mechanisms regulate decision-making processes. These findings intersect with behavioral economics, where studies demonstrate that individuals exhibit systematic biases in risk assessment and temporal discounting. Furthermore, neuroimaging data combined with economic choice experiments suggest that dopaminergic pathways modulate both reward valuation and social preference formation, challenging traditional assumptions about rational actor models in microeconomic theory while simultaneously illuminating the neurobiological substrates of human agency."
+      },
+      "solution_criteria": [
+        "Identifies distinct topics spanning multiple disciplines (neuroscience, psychology, economics, neurobiology)",
+        "Extracts specific technical concepts and methodologies mentioned in the passage",
+        "Avoids duplicating closely related concepts while recognizing them as separate topics",
+        "Returns results as a JSON array of strings"
+      ],
+      "task_description": "Extract topics out of a passsage of text from a scholarly article into a JSON array of strings",
+      "scenario": "Testing with interdisciplinary passage containing mixed technical and social science topics to verify accurate identification of distinct concepts across fields"
+    },
+    "score": 9,
+    "reasoning": "The solution fully satisfies all mandatory requirements: it is a valid JSON array of strings containing topics from the passage with no extra commentary. It meets the secondary criteria by identifying distinct topics across multiple disciplines and extracting specific technical concepts. The extraction is comprehensive and well-organized. Minor weaknesses include some granularity choices that could be debated (whether certain items should be separate topics or combined) and one omitted methodology, but these do not significantly detract from the overall quality of the response. The solution demonstrates strong understanding of the passage's content and appropriate topic extraction."
+  },
+  {
+    "output": "```json\n[\n  \"Machine learning\",\n  \"Natural language processing\",\n  \"Transformer architectures\",\n  \"Deep learning\",\n  \"BERT\",\n  \"GPT\",\n  \"Attention mechanisms\",\n  \"Recurrent neural networks\",\n  \"Sentiment analysis\",\n  \"Transfer learning\",\n  \"Pre-trained language models\",\n  \"Fine-tuning\",\n  \"Machine translation\",\n  \"Named entity recognition\",\n  \"Question-answering systems\"\n]\n```",
+    "test_case": {
+      "prompt_inputs": {
+        "content": "Recent advances in machine learning have revolutionized natural language processing through the development of transformer architectures. These deep learning models, particularly BERT and GPT variants, leverage attention mechanisms to process sequential data more efficiently than recurrent neural networks. Within NLP applications, sentiment analysis has benefited significantly from transfer learning approaches, where pre-trained language models fine-tuned on domain-specific corpora achieve state-of-the-art performance. Additionally, transformer-based systems have enabled breakthroughs in machine translation, named entity recognition, and question-answering tasks, collectively demonstrating the versatility of attention-based deep learning mechanisms across diverse linguistic tasks."
+      },
+      "solution_criteria": [
+        "Extracts both broad topics (machine learning, natural language processing, deep learning, transformer architectures) and specific subtopics (BERT, GPT, sentiment analysis, transfer learning, machine translation, named entity recognition, question-answering)",
+        "Distinguishes between general concepts and their specific instantiations without excessive duplication",
+        "Returns output as a JSON array of strings with clear, distinct topic entries"
+      ],
+      "task_description": "Extract topics out of a passsage of text from a scholarly article into a JSON array of strings",
+      "scenario": "Testing with a passage containing overlapping or nested topics to assess whether the extraction properly distinguishes between broad topics and subtopics"
+    },
+    "score": 9,
+    "reasoning": "The solution fully satisfies all mandatory requirements: it is a valid JSON array of strings, contains only topic names without commentary, and returns only the JSON array. It also meets the secondary criteria by extracting both broad and specific topics with clear distinction and minimal duplication. The inclusion of 'Recurrent neural networks' is a minor issue since it appears in the text as a comparison point ('more efficiently than recurrent neural networks') rather than as a primary topic being discussed. However, this is a marginal concern as the passage does mention it as a relevant concept. Overall, the solution demonstrates strong topic extraction with appropriate granularity."
+  },
+  {
+    "output": "```json\n[\n  \"CRISPR-Cas9 gene editing\",\n  \"Hematopoietic stem cells\",\n  \"Ex vivo cell modification\",\n  \"Double-strand breaks\",\n  \"Homology-directed repair\",\n  \"Monogenic disorders\",\n  \"Sickle cell disease\",\n  \"\u03b2-thalassemia\",\n  \"Hemoglobin levels\",\n  \"Vaso-occlusive crisis\",\n  \"Off-target effects\",\n  \"Immunogenicity\",\n  \"Base editing\",\n  \"Prime editing\",\n  \"Polygenic disorders\",\n  \"Gene therapy\",\n  \"Clinical trials\"\n]\n```",
+    "test_case": {
+      "prompt_inputs": {
+        "content": "Recent advances in CRISPR-Cas9 gene editing have demonstrated significant efficacy in treating monogenic disorders through ex vivo hematopoietic stem cell (HSC) modification. The mechanism involves site-specific double-strand breaks (DSBs) followed by homology-directed repair (HDR) to correct pathogenic mutations. Clinical trials utilizing this approach for sickle cell disease (SCD) and \u03b2-thalassemia have shown remarkable improvements in hemoglobin levels and reduced vaso-occlusive crisis (VOC) frequency. However, off-target effects and the immunogenicity of the Cas9 nuclease remain significant challenges in translating this technology to in vivo applications. Recent developments in base editing (BE) and prime editing (PE) represent promising alternatives that minimize DSBs and improve specificity, with potential applications extending to polygenic disorders."
+      },
+      "solution_criteria": [
+        "Extracts all major topics including both explicit terms (CRISPR-Cas9, gene editing, base editing) and implicit topics represented by acronyms (HSC, HDR, SCD, VOC, BE, PE)",
+        "Identifies domain-specific concepts (off-target effects, homology-directed repair, vaso-occlusive crisis) as distinct topics",
+        "Returns results as a JSON array of strings with no additional formatting or explanation"
+      ],
+      "task_description": "Extract topics out of a passsage of text from a scholarly article into a JSON array of strings",
+      "scenario": "Testing with a passage containing domain-specific jargon and acronyms to verify the prompt correctly identifies topics despite specialized terminology and abbreviations"
+    },
+    "score": 8,
+    "reasoning": "The solution meets all mandatory requirements: it contains a valid JSON array of strings with topics only, no extra commentary, and the response is the JSON array alone. It successfully extracts explicit terms, acronym expansions (HSC, HDR, SCD, VOC, BE, PE), and domain-specific concepts as required by the secondary criteria. However, two topics ('Gene therapy' and 'Clinical trials') appear to be inferences or contextual elements rather than core topics extracted from the passage. The passage discusses gene editing applications and mentions clinical trials as a vehicle for demonstrating efficacy, but these are not primary topics being discussed. Despite these minor issues, the solution captures the vast majority of relevant topics and meets all mandatory requirements."
+  }
+]

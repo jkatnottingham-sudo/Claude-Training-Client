@@ -1,0 +1,230 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Prompt Evaluation Report</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                line-height: 1.6;
+                margin: 0;
+                padding: 20px;
+                color: #333;
+            }
+            .header {
+                background-color: #f0f0f0;
+                padding: 20px;
+                border-radius: 5px;
+                margin-bottom: 20px;
+            }
+            .summary-stats {
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            .stat-box {
+                background-color: #fff;
+                border-radius: 5px;
+                padding: 15px;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                flex-basis: 30%;
+                min-width: 200px;
+            }
+            .stat-value {
+                font-size: 24px;
+                font-weight: bold;
+                margin-top: 5px;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+            }
+            th {
+                background-color: #4a4a4a;
+                color: white;
+                text-align: left;
+                padding: 12px;
+            }
+            td {
+                padding: 10px;
+                border-bottom: 1px solid #ddd;
+                vertical-align: top;
+            }
+            tr:nth-child(even) {
+                background-color: #f9f9f9;
+            }
+            .output-cell {
+                white-space: pre-wrap;
+            }
+            .score {
+                font-weight: bold;
+                padding: 5px 10px;
+                border-radius: 3px;
+                display: inline-block;
+            }
+            .score-high {
+                background-color: #c8e6c9;
+                color: #2e7d32;
+            }
+            .score-medium {
+                background-color: #fff9c4;
+                color: #f57f17;
+            }
+            .score-low {
+                background-color: #ffcdd2;
+                color: #c62828;
+            }
+            .output {
+                overflow: auto;
+                white-space: pre-wrap;
+            }
+
+            .output pre {
+                background-color: #f5f5f5;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                padding: 10px;
+                margin: 0;
+                font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+                font-size: 14px;
+                line-height: 1.4;
+                color: #333;
+                box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+                overflow-x: auto;
+                white-space: pre-wrap; 
+                word-wrap: break-word; 
+            }
+
+            td {
+                width: 20%;
+            }
+            .score-col {
+                width: 80px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <h1>Prompt Evaluation Report</h1>
+            <div class="summary-stats">
+                <div class="stat-box">
+                    <div>Total Test Cases</div>
+                    <div class="stat-value">3</div>
+                </div>
+                <div class="stat-box">
+                    <div>Average Score</div>
+                    <div class="stat-value">8.7 / 10</div>
+                </div>
+                <div class="stat-box">
+                    <div>Pass Rate (≥7)</div>
+                    <div class="stat-value">100.0%</div>
+                </div>
+            </div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Scenario</th>
+                    <th>Prompt Inputs</th>
+                    <th>Solution Criteria</th>
+                    <th>Output</th>
+                    <th>Score</th>
+                    <th>Reasoning</th>
+                </tr>
+            </thead>
+            <tbody>
+    
+            <tr>
+                <td>Testing with interdisciplinary passage containing mixed technical and social science topics to verify accurate identification of distinct concepts across fields</td>
+                <td class="prompt-inputs"><strong>content:</strong> Recent advances in computational neuroscience have leveraged machine learning algorithms to decode neural activity patterns in the prefrontal cortex, revealing how cognitive control mechanisms regulate decision-making processes. These findings intersect with behavioral economics, where studies demonstrate that individuals exhibit systematic biases in risk assessment and temporal discounting. Furthermore, neuroimaging data combined with economic choice experiments suggest that dopaminergic pathways modulate both reward valuation and social preference formation, challenging traditional assumptions about rational actor models in microeconomic theory while simultaneously illuminating the neurobiological substrates of human agency.</td>
+                <td class="criteria">• Identifies distinct topics spanning multiple disciplines (neuroscience, psychology, economics, neurobiology)<br>• Extracts specific technical concepts and methodologies mentioned in the passage<br>• Avoids duplicating closely related concepts while recognizing them as separate topics<br>• Returns results as a JSON array of strings</td>
+                <td class="output"><pre>```json
+[
+  "Computational neuroscience",
+  "Machine learning algorithms",
+  "Neural activity patterns",
+  "Prefrontal cortex",
+  "Cognitive control",
+  "Decision-making",
+  "Behavioral economics",
+  "Risk assessment",
+  "Temporal discounting",
+  "Neuroimaging",
+  "Dopaminergic pathways",
+  "Reward valuation",
+  "Social preference formation",
+  "Rational actor models",
+  "Microeconomic theory",
+  "Human agency"
+]
+```</pre></td>
+                <td class="score-col"><span class="score score-high">9</span></td>
+                <td class="reasoning">The solution fully satisfies all mandatory requirements: it is a valid JSON array of strings containing topics from the passage with no extra commentary. It meets the secondary criteria by identifying distinct topics across multiple disciplines and extracting specific technical concepts. The extraction is comprehensive and well-organized. Minor weaknesses include some granularity choices that could be debated (whether certain items should be separate topics or combined) and one omitted methodology, but these do not significantly detract from the overall quality of the response. The solution demonstrates strong understanding of the passage's content and appropriate topic extraction.</td>
+            </tr>
+        
+            <tr>
+                <td>Testing with a passage containing overlapping or nested topics to assess whether the extraction properly distinguishes between broad topics and subtopics</td>
+                <td class="prompt-inputs"><strong>content:</strong> Recent advances in machine learning have revolutionized natural language processing through the development of transformer architectures. These deep learning models, particularly BERT and GPT variants, leverage attention mechanisms to process sequential data more efficiently than recurrent neural networks. Within NLP applications, sentiment analysis has benefited significantly from transfer learning approaches, where pre-trained language models fine-tuned on domain-specific corpora achieve state-of-the-art performance. Additionally, transformer-based systems have enabled breakthroughs in machine translation, named entity recognition, and question-answering tasks, collectively demonstrating the versatility of attention-based deep learning mechanisms across diverse linguistic tasks.</td>
+                <td class="criteria">• Extracts both broad topics (machine learning, natural language processing, deep learning, transformer architectures) and specific subtopics (BERT, GPT, sentiment analysis, transfer learning, machine translation, named entity recognition, question-answering)<br>• Distinguishes between general concepts and their specific instantiations without excessive duplication<br>• Returns output as a JSON array of strings with clear, distinct topic entries</td>
+                <td class="output"><pre>```json
+[
+  "Machine learning",
+  "Natural language processing",
+  "Transformer architectures",
+  "Deep learning",
+  "BERT",
+  "GPT",
+  "Attention mechanisms",
+  "Recurrent neural networks",
+  "Sentiment analysis",
+  "Transfer learning",
+  "Pre-trained language models",
+  "Fine-tuning",
+  "Machine translation",
+  "Named entity recognition",
+  "Question-answering systems"
+]
+```</pre></td>
+                <td class="score-col"><span class="score score-high">9</span></td>
+                <td class="reasoning">The solution fully satisfies all mandatory requirements: it is a valid JSON array of strings, contains only topic names without commentary, and returns only the JSON array. It also meets the secondary criteria by extracting both broad and specific topics with clear distinction and minimal duplication. The inclusion of 'Recurrent neural networks' is a minor issue since it appears in the text as a comparison point ('more efficiently than recurrent neural networks') rather than as a primary topic being discussed. However, this is a marginal concern as the passage does mention it as a relevant concept. Overall, the solution demonstrates strong topic extraction with appropriate granularity.</td>
+            </tr>
+        
+            <tr>
+                <td>Testing with a passage containing domain-specific jargon and acronyms to verify the prompt correctly identifies topics despite specialized terminology and abbreviations</td>
+                <td class="prompt-inputs"><strong>content:</strong> Recent advances in CRISPR-Cas9 gene editing have demonstrated significant efficacy in treating monogenic disorders through ex vivo hematopoietic stem cell (HSC) modification. The mechanism involves site-specific double-strand breaks (DSBs) followed by homology-directed repair (HDR) to correct pathogenic mutations. Clinical trials utilizing this approach for sickle cell disease (SCD) and β-thalassemia have shown remarkable improvements in hemoglobin levels and reduced vaso-occlusive crisis (VOC) frequency. However, off-target effects and the immunogenicity of the Cas9 nuclease remain significant challenges in translating this technology to in vivo applications. Recent developments in base editing (BE) and prime editing (PE) represent promising alternatives that minimize DSBs and improve specificity, with potential applications extending to polygenic disorders.</td>
+                <td class="criteria">• Extracts all major topics including both explicit terms (CRISPR-Cas9, gene editing, base editing) and implicit topics represented by acronyms (HSC, HDR, SCD, VOC, BE, PE)<br>• Identifies domain-specific concepts (off-target effects, homology-directed repair, vaso-occlusive crisis) as distinct topics<br>• Returns results as a JSON array of strings with no additional formatting or explanation</td>
+                <td class="output"><pre>```json
+[
+  "CRISPR-Cas9 gene editing",
+  "Hematopoietic stem cells",
+  "Ex vivo cell modification",
+  "Double-strand breaks",
+  "Homology-directed repair",
+  "Monogenic disorders",
+  "Sickle cell disease",
+  "β-thalassemia",
+  "Hemoglobin levels",
+  "Vaso-occlusive crisis",
+  "Off-target effects",
+  "Immunogenicity",
+  "Base editing",
+  "Prime editing",
+  "Polygenic disorders",
+  "Gene therapy",
+  "Clinical trials"
+]
+```</pre></td>
+                <td class="score-col"><span class="score score-high">8</span></td>
+                <td class="reasoning">The solution meets all mandatory requirements: it contains a valid JSON array of strings with topics only, no extra commentary, and the response is the JSON array alone. It successfully extracts explicit terms, acronym expansions (HSC, HDR, SCD, VOC, BE, PE), and domain-specific concepts as required by the secondary criteria. However, two topics ('Gene therapy' and 'Clinical trials') appear to be inferences or contextual elements rather than core topics extracted from the passage. The passage discusses gene editing applications and mentions clinical trials as a vehicle for demonstrating efficacy, but these are not primary topics being discussed. Despite these minor issues, the solution captures the vast majority of relevant topics and meets all mandatory requirements.</td>
+            </tr>
+        
+            </tbody>
+        </table>
+    </body>
+    </html>
+    

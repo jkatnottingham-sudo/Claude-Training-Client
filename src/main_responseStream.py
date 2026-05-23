@@ -14,17 +14,17 @@ def main() -> None:
  
     add_user_message(messages, input_message)
     
-    add_assistant_message(messages, "```bash")
+    #add_assistant_message(messages, "```bash")
 
-    # with client.messages.stream(
-    #     model=model,
-    #     max_tokens=1000,
-    #     messages=messages,
-    #     stop_sequences=[ "```"],
-    #     #system = "Remove ```json and ``` at the beginning and end of the response."
-    # ) as stream:
-    #     for text in stream.text_stream:
-    #         print(text, end="")
+    with client.messages.stream(
+         model=model,
+         max_tokens=1000,
+         messages=messages,
+         #stop_sequences=[ "```"],
+         #system = "Remove ```json and ``` at the beginning and end of the response."
+     ) as stream:
+         for text in stream.text_stream:
+             print(text, end="")
      
     # response = client.messages.create(
     #     model= model,
@@ -34,10 +34,8 @@ def main() -> None:
     #     system="Put all AWS CLI commands on a single line, separated by && .",
     #     stop_sequences=["```"]
     # )
-    response=chat(messages, stop_sequences=["```"])
+    #response=chat(messages, stop_sequences=["```"])
     
-    print(response)
-    print(response.content[0].text.strip("\n"))
-
+    #print(response)
 if __name__ == "__main__":
     main()
