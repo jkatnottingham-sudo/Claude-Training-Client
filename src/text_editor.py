@@ -169,7 +169,7 @@ class TextEditorTool:
             raise type(e)(str(e))
 
 
-text_editor_tool = TextEditorTool()
+text_editor_tool = TextEditorTool(base_dir=os.path.dirname(os.getcwd()))
 
 
 def get_text_edit_schema() -> dict:

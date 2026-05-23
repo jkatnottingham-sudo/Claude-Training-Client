@@ -3,10 +3,8 @@ import shutil
 import subprocess
 
 ALLOWED_COMMANDS = {
-    # Cross-platform (bash and PowerShell aliases)
-    "echo", "pwd", "ls", "cat", "grep", "find", "wc", "head", "tail","git","git status"
-    # Windows cmd/PowerShell native
-    "dir", "type", "cd", "mkdir", "rm", "rmdir", "cp", "mv", "ren", "move", "copy", "del", "erase", "rename", "move", "copy", "del", "erase", "rename", "dir"
+    "echo", "pwd", "ls", "cat", "grep", "find", "wc", "head", "tail",
+    "git", "mkdir", "rm", "rmdir", "cp", "mv", "cd", "dirname", "basename",
 }
 SHELL_OPERATORS = {"&&", "||", "|", ";", "&", ">", "<", ">>"}
 
@@ -24,41 +22,17 @@ def validate_command(command: str) -> tuple[bool, str | None]:
     if executable not in ALLOWED_COMMANDS:
         return False, f"Command '{executable}' is not in the allowlist"
 
-    for token in tokens[1:]:
-        if token in SHELL_OPERATORS or token.startswith(("$", "`")):
-            return False, f"Shell operator '{token}' is not allowed"
-
     return True, None
 
 
 def _find_shell() -> str | None:
-    """Return bash if available (e.g. Git Bash), otherwise None to fall back to cmd.exe.
+    """Return bash if available on PATH, otherwise None to fall back to cmd.exe.
     wsl.exe is intentionally excluded — it exists on Windows even when WSL is not installed,
     causing misleading failures.
     """
     if shutil.which("bash"):
         return "bash"
     return None
-
-
-# Bash commands that don't exist in cmd.exe, mapped to their equivalents
-_CMD_TRANSLATIONS = {
-    "pwd": "cd",
-    "ls": "dir",
-    "cat": "type",
-}
-
-
-def _translate_for_cmd(command: str) -> str:
-    """Translate bash commands to cmd.exe equivalents where needed."""
-    tokens = command.strip().split(maxsplit=1)
-    if not tokens:
-        return command
-    base = tokens[0]
-    if base in _CMD_TRANSLATIONS:
-        rest = tokens[1] if len(tokens) > 1 else ""
-        return f"{_CMD_TRANSLATIONS[base]} {rest}".strip()
-    return command
 
 
 class BashSession:
@@ -80,7 +54,7 @@ class BashSession:
                 )
             else:
                 result = subprocess.run(
-                    _translate_for_cmd(command),
+                    command,
                     shell=True,
                     capture_output=True,
                     text=True,
