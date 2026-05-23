@@ -1,22 +1,14 @@
-import platform
-import queue
 import shlex
+import shutil
 import subprocess
-import threading
-import time
 
 ALLOWED_COMMANDS = {
-    # Cross-platform
-    "echo", "pwd",
-    # Unix-style (also work as aliases in PowerShell)
-    "ls", "cat", "grep", "find", "wc", "head", "tail",
-    # Windows PowerShell native
-    "dir", "type", "Get-ChildItem", "Get-Content", "Select-String",
-    "Measure-Object", "Select-Object",
+    # Cross-platform (bash and PowerShell aliases)
+    "echo", "pwd", "ls", "cat", "grep", "find", "wc", "head", "tail","git","git status"
+    # Windows cmd/PowerShell native
+    "dir", "type", "cd", "mkdir", "rm", "rmdir", "cp", "mv", "ren", "move", "copy", "del", "erase", "rename", "move", "copy", "del", "erase", "rename", "dir"
 }
 SHELL_OPERATORS = {"&&", "||", "|", ";", "&", ">", "<", ">>"}
-
-_SENTINEL = "__CMD_DONE__"
 
 
 def validate_command(command: str) -> tuple[bool, str | None]:
@@ -39,86 +31,73 @@ def validate_command(command: str) -> tuple[bool, str | None]:
     return True, None
 
 
+def _find_shell() -> str | None:
+    """Return bash if available (e.g. Git Bash), otherwise None to fall back to cmd.exe.
+    wsl.exe is intentionally excluded — it exists on Windows even when WSL is not installed,
+    causing misleading failures.
+    """
+    if shutil.which("bash"):
+        return "bash"
+    return None
+
+
+# Bash commands that don't exist in cmd.exe, mapped to their equivalents
+_CMD_TRANSLATIONS = {
+    "pwd": "cd",
+    "ls": "dir",
+    "cat": "type",
+}
+
+
+def _translate_for_cmd(command: str) -> str:
+    """Translate bash commands to cmd.exe equivalents where needed."""
+    tokens = command.strip().split(maxsplit=1)
+    if not tokens:
+        return command
+    base = tokens[0]
+    if base in _CMD_TRANSLATIONS:
+        rest = tokens[1] if len(tokens) > 1 else ""
+        return f"{_CMD_TRANSLATIONS[base]} {rest}".strip()
+    return command
+
+
 class BashSession:
     def __init__(self):
-        self.output_queue: queue.Queue = queue.Queue()
-        self.error_queue: queue.Queue = queue.Queue()
-        self.process = self._start_process()
-        self._start_readers()
-
-    def _shell_cmd(self) -> list[str]:
-        if platform.system() == "Windows":
-            return ["powershell.exe", "-NoProfile", "-NonInteractive", "-Command", "-"]
-        return ["/bin/bash"]
-
-    def _start_process(self) -> subprocess.Popen:
-        return subprocess.Popen(
-            self._shell_cmd(),
-            stdin=subprocess.PIPE,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            text=True,
-            bufsize=0,
-        )
-
-    def _start_readers(self) -> None:
-        def read_stdout():
-            for line in self.process.stdout:
-                self.output_queue.put(line)
-
-        def read_stderr():
-            for line in self.process.stderr:
-                self.error_queue.put(line)
-
-        threading.Thread(target=read_stdout, daemon=True).start()
-        threading.Thread(target=read_stderr, daemon=True).start()
-
-    def _read_output(self, timeout: float = 10.0) -> str:
-        output_lines = []
-        deadline = time.time() + timeout
-
-        while time.time() < deadline:
-            try:
-                line = self.output_queue.get(timeout=0.1)
-                if _SENTINEL in line:
-                    break
-                output_lines.append(line)
-            except queue.Empty:
-                continue
-
-        error_lines = []
-        while not self.error_queue.empty():
-            try:
-                error_lines.append(self.error_queue.get_nowait())
-            except queue.Empty:
-                break
-
-        output = "".join(output_lines).strip()
-        errors = "".join(error_lines).strip()
-
-        if errors:
-            return f"{output}\nSTDERR: {errors}".strip()
-        return output
+        self._shell = _find_shell()
 
     def execute_command(self, command: str) -> str:
         is_valid, error = validate_command(command)
         if not is_valid:
             return f"Command rejected: {error}"
 
-        self.process.stdin.write(command + "\n")
-        self.process.stdin.write(f'echo "{_SENTINEL}"\n')
-        self.process.stdin.flush()
+        try:
+            if self._shell:
+                result = subprocess.run(
+                    [self._shell, "-c", command],
+                    capture_output=True,
+                    text=True,
+                    timeout=10,
+                )
+            else:
+                result = subprocess.run(
+                    _translate_for_cmd(command),
+                    shell=True,
+                    capture_output=True,
+                    text=True,
+                    timeout=10,
+                )
+        except subprocess.TimeoutExpired:
+            return "Error: Command timed out after 10 seconds"
+        except Exception as e:
+            return f"Error: {e}"
 
-        return self._read_output(timeout=10)
+        output = result.stdout.strip()
+        errors = result.stderr.strip()
+
+        if errors:
+            return f"{output}\nSTDERR: {errors}".strip()
+        return output
 
     def restart(self) -> None:
-        try:
-            self.process.terminate()
-            self.process.wait(timeout=5)
-        except Exception:
-            self.process.kill()
-
-        self.output_queue = queue.Queue()
-        self.error_queue = queue.Queue()
-        self.process = self._start_process()
-        self._start_readers()
+        """Re-detect available shell (no persistent process to restart)."""
+        self._shell = _find_shell()

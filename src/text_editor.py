@@ -210,8 +210,10 @@ def run_tools(message) -> list:
     tool_result_blocks = []
 
     for tool_request in tool_requests:
+        print(f"[tool_use] name={tool_request.name!r} input={tool_request.input}")
         try:
             tool_output = run_tool(tool_request.name, tool_request.input)
+            print(f"[tool_result] {tool_output!r}")
             tool_result_block = {
                 "type": "tool_result",
                 "tool_use_id": tool_request.id,
@@ -219,6 +221,7 @@ def run_tools(message) -> list:
                 "is_error": False,
             }
         except Exception as e:
+            print(f"[tool_error] {e!r}")
             tool_result_block = {
                 "type": "tool_result",
                 "tool_use_id": tool_request.id,
